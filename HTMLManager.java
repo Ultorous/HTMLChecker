@@ -20,7 +20,8 @@ public class HTMLManager {
       String result = "";
       
       for (HTMLTag element : tags){
-          result += element.toString();
+          String addition = element.toString();
+          result += addition.trim();
       }
       return result;
   }
