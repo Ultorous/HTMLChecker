@@ -14,5 +14,16 @@ public class HTMLManager {
           }
       }
   }
+    
+  public String toString(){
+      String result = "";
+      
+      for (HTMLTag element : tags){
+          result += element.toString();
+      }
+      return result;
+  }
+  
+  public void fixHTML(){}
   
 }
