@@ -15,7 +15,11 @@ public class HTMLManager {
           }
       }
   }
-    
+  
+  public Queue<HTMLTag> getTags(){
+      return tags;
+  }
+  
   public String toString(){
       String result = "";
       
