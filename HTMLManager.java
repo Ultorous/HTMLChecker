@@ -39,19 +39,20 @@ public class HTMLManager {
           HTMLTag current = tags.peek();
           
           if(current.isOpening()){
-              if(!current.isSelfClosing()){
-                  tags.remove();
-                  tags.add(current);
-                  checker.push(current);
-              } else if (current.isSelfClosing()){
-                  tags.add(tags.poll());
-              }
-          } else if(current.isClosing()){
-              if(!current.matches(checker.peek())){
+              tags.remove();
+              tags.add(current);
+              checker.push(current);
+          } else if (current.isSelfClosing()){
+              tags.add(tags.poll());
+          } else if(current.isClosing() && !current.isSelfClosing()){
+              if(!checker.isEmpty() && !current.matches(checker.peek())){
                   checker.pop();
                   HTMLTag ammendment = current.getMatching();
                   tags.add(ammendment);
+              } else {
+                  tags.poll();
               }
+              
           }
       }
    }
