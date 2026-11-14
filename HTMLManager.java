@@ -10,6 +10,7 @@ public class HTMLManager {
       if(input == null){
           throw new IllegalArgumentException("The input is empty, please try a different file");
       } else{
+          //int size = input.size();
           for (int i = 0; i < size; i++){
               tags.add(input.poll());
           }
@@ -30,6 +31,29 @@ public class HTMLManager {
       return result;
   }
   
-  public void fixHTML(){}
+  public void fixHTML(){
+      Stack<HTMLTag> checker = new Stack<>();
+      int size = tags.size();
+      
+      for(int i = 0; i < size; i++){
+          HTMLTag current = tags.peek();
+          
+          if(current.isOpening()){
+              if(!current.isSelfClosing()){
+                  tags.remove();
+                  tags.add(current);
+                  checker.push(current);
+              } else if (current.isSelfClosing()){
+                  tags.add(tags.poll());
+              }
+          } else if(current.isClosing()){
+              if(!current.matches(checker.peek())){
+                  checker.pop();
+                  HTMLTag ammendment = current.getMatching();
+                  tags.add(ammendment);
+              }
+          }
+      }
+   }
   
 }
