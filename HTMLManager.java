@@ -33,9 +33,9 @@ public class HTMLManager {
   
   public void fixHTML(){
       Stack<HTMLTag> checker = new Stack<>();
-      int size = tags.size();
+      int queueSize = tags.size();
       
-      for(int i = 0; i < size; i++){
+      for(int i = 0; i < queueSize; i++){
           HTMLTag current = tags.peek();
           
           if(current.isOpening()){
@@ -46,15 +46,27 @@ public class HTMLManager {
               tags.add(tags.poll());
           } else if(current.isClosing() && !current.isSelfClosing()){
               if(!checker.isEmpty() && !current.matches(checker.peek())){
-                  checker.pop();
-                  HTMLTag ammendment = current.getMatching();
+                  HTMLTag checkerTag = checker.pop();
+                  HTMLTag ammendment = checkerTag.getMatching();
                   tags.add(ammendment);
-              } else {
+              } else if (!checker.isEmpty() && current.matches(checker.peek())){
+                  checker.pop();
+                  tags.poll();
+                  tags.add(current);
+              } else if(checker.isEmpty()){
                   tags.poll();
               }
               
           }
       }
+      
+      int stackSize = checker.size();
+      for(int i = 0; i < stackSize; i++){
+          HTMLTag checkerTag = checker.pop();
+          HTMLTag ammendment = checkerTag.getMatching();
+          tags.add(ammendment);
+      }
+      
    }
   
 }
