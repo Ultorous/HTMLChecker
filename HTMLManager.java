@@ -49,6 +49,7 @@ public class HTMLManager {
                   HTMLTag checkerTag = checker.pop();
                   HTMLTag ammendment = checkerTag.getMatching();
                   tags.add(ammendment);
+                  tags.poll();
               } else if (!checker.isEmpty() && current.matches(checker.peek())){
                   checker.pop();
                   tags.poll();
