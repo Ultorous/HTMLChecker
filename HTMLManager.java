@@ -5,13 +5,13 @@ public class HTMLManager {
   
   public HTMLManager(Queue<HTMLTag> input){
       tags = new LinkedList<HTMLTag>();
-      int size = input.size();
       
       //Throw exception if the input is null. Otherwise transfer each tag in the input into the 
       //private Queue
       if(input == null){
           throw new IllegalArgumentException("The input is empty, please try a different file");
-      } else{
+      } else {
+          int size = input.size();
           for (int i = 0; i < size; i++){
               tags.add(input.poll());
           }
