@@ -11,8 +11,7 @@ public class HTMLManager {
       if(input == null){
           throw new IllegalArgumentException("The input is empty, please try a different file");
       } else {
-          int size = input.size();
-          for (int i = 0; i < size; i++){
+          while(!input.isEmpty()){
               tags.add(input.poll());
           }
       }
@@ -64,9 +63,9 @@ public class HTMLManager {
           }
       }
       
-      //For each tag left in the stack, add its closing tag.
-      int stackSize = checker.size();
-      for(int i = 0; i < stackSize; i++){
+      //For each tag left in the stack, add its closing tag to the output and remove 
+      //the it from the stack.
+      while(!checker.isEmpty()){
           tags.add(checker.pop().getMatching());
       }
    }
